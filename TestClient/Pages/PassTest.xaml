@@ -1,0 +1,44 @@
+﻿<Page x:Class="TestClient.Pages.PassTest"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestClient.Pages"
+      xmlns:viewModels="clr-namespace:TestClient.ViewModels"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PassTest">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Page.DataContext>
+        <viewModels:PassTestViewModel></viewModels:PassTestViewModel>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Style="{StaticResource groupBoxStyle}" IsEnabled="{Binding SelectTestIsEnabled}" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource pageTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left">Select test:</TextBlock>
+                <ComboBox Style="{StaticResource comboBoxStyle}" Width="200" Margin="10" ItemsSource="{Binding MyTestsList}" SelectedItem="{Binding SelectedExam}"></ComboBox>
+                <Button Style="{StaticResource roundButtonStyle}" Command="{Binding PassCommand}" Margin="10">Pass</Button>
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Grid.Row="1">
+            <TextBlock Style="{StaticResource pageTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding QuestionText}"></TextBlock>
+            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer1}" Visibility="{Binding Answer1Visibility}" IsChecked="{Binding IsChecked1, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="1"></RadioButton>
+            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer2}" Visibility="{Binding Answer2Visibility}" IsChecked="{Binding IsChecked2, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="2"></RadioButton>
+            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer3}" Visibility="{Binding Answer3Visibility}" IsChecked="{Binding IsChecked3, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="3"></RadioButton>
+            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer4}" Visibility="{Binding Answer4Visibility}" IsChecked="{Binding IsChecked4, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="4"></RadioButton>
+            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer5}" Visibility="{Binding Answer5Visibility}" IsChecked="{Binding IsChecked5, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="5"></RadioButton>
+        </StackPanel>
+        <Button Grid.Row="2" Style="{StaticResource roundButtonStyle}" Command="{Binding NextCommand}" HorizontalAlignment="Right" Margin="10">Next</Button>
+    </Grid>
+</Page>

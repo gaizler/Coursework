@@ -1,0 +1,202 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:StylesLibrary">
+
+    <Style x:Key="windowStyle" TargetType="Window">
+        <Setter Property="Background" Value="#424874"></Setter>
+        <Setter Property="ResizeMode" Value="CanMinimize"></Setter>
+    </Style>
+
+    <Style x:Key="labelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="5"></Setter>
+    </Style>
+
+    <Style x:Key="textBoxStyle" TargetType="TextBox">
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="10"></Setter>
+    </Style>
+
+    <Style x:Key="comboBoxStyle" TargetType="ComboBox">
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="5"></Setter>
+        <Setter Property="Foreground" Value="#00adb5"></Setter>
+    </Style>
+
+    <Style x:Key="roundButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="5"></Setter>
+        <Setter Property="Width" Value="130"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                    CornerRadius="10" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="groupBoxStyle" TargetType="GroupBox">
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Background" Value="#FF2387BF"></Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#424874"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--#region Styles for menu -->
+    <Style x:Key="MenuTextStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#eeeeee">
+        </Setter>
+        <Setter Property="FontSize" Value="16">
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
+                <Setter Property="Foreground" Value="#FF0BE4E4" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
+                <Setter Property="Foreground" Value="#FF0BE4E4" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
+                <Setter Property="Foreground" Value="#FF0BE4E4" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
+                <Setter Property="Foreground" Value="#FF0BE4E4" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="MenuButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Height" Value="30">
+        </Setter>
+        <Setter Property="Background" Value="#FF2387BF">
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="1">
+                        <TextBlock Style="{StaticResource MenuTextStyle}" Text="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ListBox}">
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Background" Value="#FF2387BF"></Setter>
+        <Setter Property="Margin" Value="10 2 2 2"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Style.Triggers>
+            <!--To Hide SubMenu List When the Parent Menu button is Unchecked-->
+            <DataTrigger Binding="{Binding IsChecked, ElementName=menuRB}" Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border Padding="20 0 0 0">
+                        <RadioButton x:Name="subMenuButton" GroupName="SubMenu" Style="{StaticResource MenuButtonStyle}" Content="{Binding SubMenuText,FallbackValue=MenuText,TargetNullValue=MenuText}" Command="{Binding SubMenuCommand}">
+                        </RadioButton>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <Style x:Key="DefaultPageTextStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#00adb5"></Setter>
+        <Setter Property="FontSize" Value="50"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="TextWrapping" Value="Wrap"></Setter>
+        <Setter Property="TextAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="5"></Setter>
+    </Style>
+
+    <Style x:Key="dataGridStyle" TargetType="{x:Type DataGrid}">
+        <Setter Property="Margin" Value="5"></Setter>
+        <Setter Property="Background" Value="#FF2387BF"></Setter>
+        <Setter Property="Foreground" Value="#FF2387BF"></Setter>
+        <Setter Property="IsReadOnly" Value="True"></Setter>
+    </Style>
+
+    <Style x:Key="pageTextStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Padding" Value="8"></Setter>
+        <Setter Property="Foreground" Value="#00adb5"></Setter>
+    </Style>
+
+    <Style x:Key="pageTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="6"></Setter>
+        <Setter Property="Width" Value="130"></Setter>
+        <Setter Property="Foreground" Value="#00adb5"></Setter>
+        <Setter Property="Background" Value="#eeeeee"></Setter>
+    </Style>
+
+    <Style x:Key="checkBoxStyle" TargetType="CheckBox">
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Foreground" Value="#00adb5"></Setter>
+    </Style>
+
+    <Style x:Key="rabioButtonStyle" TargetType="RadioButton">
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="10"></Setter>
+        <Setter Property="Foreground" Value="#00adb5"></Setter>
+    </Style>
+
+    <Style x:Key="listBoxStyle" TargetType="ListBox">
+        <Setter Property="Margin" Value="5"></Setter>
+    </Style>
+    
+    <Style x:Key="listBoxItemStyle" TargetType="ListBoxItem">
+        <Setter Property="Margin" Value="5"></Setter>
+    </Style>
+
+    <Style x:Key="tabControlStyle" TargetType="TabControl">
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Background" Value="#FF2387BF"></Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#424874"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

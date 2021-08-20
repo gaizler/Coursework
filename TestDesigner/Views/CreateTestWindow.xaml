@@ -1,0 +1,129 @@
+﻿<Window x:Class="TestDesigner.Views.CreateTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestDesigner.Views"
+        xmlns:viewModels="clr-namespace:TestDesigner.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="CreateTestWindow" Height="560" Width="800" Style="{StaticResource windowStyle}">
+    <Window.DataContext>
+        <viewModels:CreateTestViewModel></viewModels:CreateTestViewModel>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Margin="5" Header="Info" IsEnabled="{Binding IsEnabledInfoGroupBox}" Style="{StaticResource groupBoxStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Style="{StaticResource labelStyle}">Author:</Label>
+                <Label Grid.Row="1" Style="{StaticResource labelStyle}">Title:</Label>
+                <Label Grid.Row="2" Style="{StaticResource labelStyle}" Margin="2" FontStretch="Expanded">
+                    <TextBlock TextWrapping="WrapWithOverflow">
+                        Number of 
+                        answers:
+                    </TextBlock>
+                </Label>
+
+                <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource textBoxStyle}" Text="{Binding AuthorText, UpdateSourceTrigger=PropertyChanged}" Width="130"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource textBoxStyle}" Text="{Binding TitleText, UpdateSourceTrigger=PropertyChanged}" Width="130"></TextBox>
+                <ComboBox Grid.Row="2" Grid.Column="1" Style="{StaticResource comboBoxStyle}" SelectedValue="{Binding SelectedQuantityOfAnswers}" ItemsSource="{Binding NumberOfQuestions}" Width="130"></ComboBox>
+                <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource roundButtonStyle}" Command="{Binding AddAuthorCommand}">Add author</Button>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Margin="5" Header="Answers" Grid.Row="1" Grid.RowSpan="2" IsEnabled="{Binding AreEnabledAnswerGroupBoxes}" Style="{StaticResource groupBoxStyle}">
+            <ListBox  Style="{StaticResource listBoxStyle}" ItemsSource="{Binding AnswersForCurrentTest}" SelectedItem="{Binding SelectedAnswer}">
+                <ListBox.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="ListBoxItem.Margin" Value="5"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </GroupBox>
+
+        <GroupBox Margin="5" Header="Question" Grid.Column="1" IsEnabled="{Binding IsEnabledQuestionGroupBox}" Style="{StaticResource groupBoxStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Style="{StaticResource labelStyle}">Question:</Label>
+                <Label Grid.Row="1" Style="{StaticResource labelStyle}">Difficulty:</Label>
+
+                <TextBox Grid.Column="1" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding QuestionText, UpdateSourceTrigger=PropertyChanged}" Width="365"></TextBox>
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="5" Style="{StaticResource comboBoxStyle}" ItemsSource="{Binding Difficulties}" SelectedItem="{Binding SelectedDifficulty}" Width="365"></ComboBox>
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button Style="{StaticResource roundButtonStyle}" Command="{Binding AddQuestionCommand}">OK</Button>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Margin="5" Header="Answer" Grid.Column="1" Grid.Row="1" IsEnabled="{Binding AreEnabledAnswerGroupBoxes}" Style="{StaticResource groupBoxStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Style="{StaticResource labelStyle}">Answer:</Label>
+
+                <TextBox Grid.Column="1" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding AnswerText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <CheckBox Grid.Row="1" Grid.Column="1" Margin="5" IsChecked="{Binding IsCorrectAnswer}">Is correct</CheckBox>
+
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button Style="{StaticResource roundButtonStyle}" Command="{Binding NextQuestionCommand}">Next question</Button>
+                    <Button Style="{StaticResource roundButtonStyle}" Command="{Binding AddAnswerCommand}">Add</Button>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Margin="5" Header="Save" Grid.Column="1" Grid.Row="2" IsEnabled="{Binding IsEnabledSaveGroupBox}" Style="{StaticResource groupBoxStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Style="{StaticResource labelStyle}">File name:</Label>
+
+                <TextBox Grid.Column="1" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button Style="{StaticResource roundButtonStyle}" Command="{Binding SaveCommand}">Save test</Button>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

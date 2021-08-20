@@ -1,0 +1,18 @@
+﻿<Window x:Class="TestDesigner.MainWindow"
+        x:Name="StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestDesigner"
+        xmlns:viewModels="clr-namespace:TestDesigner.ViewModels"
+        mc:Ignorable="d"
+        Title="StartWindow" Height="130" Width="300" Style="{StaticResource windowStyle}">
+    <Window.DataContext>
+        <viewModels:StartWindowViewModel></viewModels:StartWindowViewModel>
+    </Window.DataContext>
+    <StackPanel Margin="10">
+        <Button  Command="{Binding CreateTestCommand}" CommandParameter="{Binding ElementName=StartWindow}" Style="{StaticResource roundButtonStyle}" Width="250">Create test</Button>
+        <Button  Command="{Binding EditTestCommand}" CommandParameter="{Binding ElementName=StartWindow}" Style="{StaticResource roundButtonStyle}" Width="250">Edit test</Button>
+    </StackPanel>
+</Window>

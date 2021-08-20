@@ -1,0 +1,40 @@
+﻿<Page x:Class="TestServer.Pages.LoadTest"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestServer.Pages"
+      xmlns:viewModels="clr-namespace:TestServer.ViewModels"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoadTest">
+    <Page.DataContext>
+        <viewModels:LoadTestViewModel></viewModels:LoadTestViewModel>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" VerticalAlignment="Bottom">
+
+            <TextBlock Style="{StaticResource pageTextStyle}">Select time:</TextBlock>
+            <Button  Style="{StaticResource roundButtonStyle}" Margin="10" Width="100" Command="{Binding SelectTestCommand}">Select test</Button>
+        </StackPanel>
+        <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+            <ComboBox Style="{StaticResource comboBoxStyle}" Width="130" SelectedItem="{Binding SelectedTime}" ItemsSource="{Binding TimeList}"></ComboBox>
+            <TextBox Style="{StaticResource pageTextBoxStyle}" IsReadOnly="True" Text="{Binding FileNameText, Mode=TwoWay}"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="15">
+            <Button  Style="{StaticResource roundButtonStyle}" Width="200" Command="{Binding LoadTestCommand}">Load test</Button>
+        </StackPanel>
+        <DataGrid Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding TestList}"></DataGrid>
+    </Grid>
+</Page>
