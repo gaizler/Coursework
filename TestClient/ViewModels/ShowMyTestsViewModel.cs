@@ -26,6 +26,7 @@ namespace TestClient.ViewModels
         int localPort = 5679, remotePort = 5998;
         int ttl = 32;
         UdpClient udpClient;
+        IPEndPoint remoteEP;
         public IList MyTestsList { get; set; } = null;
         #endregion
         public ShowMyTestsViewModel()

@@ -7,7 +7,7 @@
         xmlns:viewModels="clr-namespace:TestClient.ViewModels"
         xmlns:controls="clr-namespace:TestClient.Controls"
         mc:Ignorable="d"
-        Title="ClientTestWindow" Height="450" Width="820" Style="{StaticResource windowStyle}">
+        Title="ClientTestWindow" Height="500" Width="820" Style="{StaticResource windowStyle}">
     <Window.DataContext>
         <viewModels:MainClientViewModel></viewModels:MainClientViewModel>
     </Window.DataContext>

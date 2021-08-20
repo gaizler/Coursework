@@ -19,9 +19,10 @@
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <GroupBox Style="{StaticResource groupBoxStyle}" IsEnabled="{Binding SelectTestIsEnabled}" Margin="5">
@@ -31,14 +32,17 @@
                 <Button Style="{StaticResource roundButtonStyle}" Command="{Binding PassCommand}" Margin="10">Pass</Button>
             </StackPanel>
         </GroupBox>
-        <StackPanel Grid.Row="1">
-            <TextBlock Style="{StaticResource pageTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding QuestionText}"></TextBlock>
-            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer1}" Visibility="{Binding Answer1Visibility}" IsChecked="{Binding IsChecked1, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="1"></RadioButton>
-            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer2}" Visibility="{Binding Answer2Visibility}" IsChecked="{Binding IsChecked2, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="2"></RadioButton>
-            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer3}" Visibility="{Binding Answer3Visibility}" IsChecked="{Binding IsChecked3, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="3"></RadioButton>
-            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer4}" Visibility="{Binding Answer4Visibility}" IsChecked="{Binding IsChecked4, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="4"></RadioButton>
-            <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer5}" Visibility="{Binding Answer5Visibility}" IsChecked="{Binding IsChecked5, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="5"></RadioButton>
-        </StackPanel>
-        <Button Grid.Row="2" Style="{StaticResource roundButtonStyle}" Command="{Binding NextCommand}" HorizontalAlignment="Right" Margin="10">Next</Button>
+        <TextBlock Grid.Row="1" Style="{StaticResource pageTextStyle}" HorizontalAlignment="Right" Margin="10" Text="{Binding TimeLeft}" Visibility="{Binding TimeVisibility}"></TextBlock>
+        <GroupBox Grid.Row="2" Style="{StaticResource groupBoxStyle}" Header="Test" Margin="5" Background="#424874">
+            <StackPanel >
+                <TextBlock Style="{StaticResource pageTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding QuestionText}"></TextBlock>
+                <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer1}" Visibility="{Binding Answer1Visibility}" IsChecked="{Binding IsChecked1, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="1"></RadioButton>
+                <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer2}" Visibility="{Binding Answer2Visibility}" IsChecked="{Binding IsChecked2, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="2"></RadioButton>
+                <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer3}" Visibility="{Binding Answer3Visibility}" IsChecked="{Binding IsChecked3, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="3"></RadioButton>
+                <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer4}" Visibility="{Binding Answer4Visibility}" IsChecked="{Binding IsChecked4, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="4"></RadioButton>
+                <RadioButton Style="{StaticResource rabioButtonStyle}" Content="{Binding Answer5}" Visibility="{Binding Answer5Visibility}" IsChecked="{Binding IsChecked5, Mode=TwoWay}" Command="{Binding CheckedChangedCommand}" CommandParameter="5"></RadioButton>
+            </StackPanel>
+        </GroupBox>
+        <Button Grid.Row="3" Style="{StaticResource roundButtonStyle}" Command="{Binding NextCommand}" HorizontalAlignment="Right" Margin="10">Next</Button>
     </Grid>
 </Page>

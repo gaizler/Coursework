@@ -17,6 +17,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using PostSharp.Patterns.Model;
 using TestLibrary;
 using System.Reflection;
+using System.Windows.Threading;
 
 namespace TestClient.ViewModels
 {
@@ -63,6 +64,14 @@ namespace TestClient.ViewModels
 
         private int maxPoint, curPoint;
 
+        private TimeSpan timeLeft;
+        public string TimeLeft
+        {
+            get => $"Time left: {timeLeft}";
+        }
+        public Visibility TimeVisibility { get; set; } = Visibility.Hidden;
+        DispatcherTimer timer;
+
 
         public ICommand PassCommand { get; set; }
         public ICommand NextCommand { get; set; }
@@ -99,7 +108,35 @@ namespace TestClient.ViewModels
 
             maxPoint = CountMaxPoint();
             curPoint = 0;
+
+            timeLeft = SelectedExam.Time;
+            timer = new DispatcherTimer();
+            timer.Tick += Timer_Tick;
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
+            TimeVisibility = Visibility.Visible;
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (timeLeft.TotalSeconds == 0)
+            {
+                MessageBox.Show($"Time is left! You got {curPoint} points from {maxPoint}. Your result is {Math.Round((double)curPoint / maxPoint * 100, 2)}%", "Finish", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                ClearFields();
+
+                Grade grade = new Grade() { Mark = Math.Round((double)curPoint / maxPoint * 100, 2), Test = new DALTest.Test() { Author = SelectedExam.TestExam.Author, Title = SelectedExam.TestExam.Title }, User = CurrentUser };
+                SendData(grade);
+                timer.Stop();
+            }
+            else
+            {
+                timeLeft = timeLeft.Subtract(new TimeSpan(0, 0, 1));
+            }
+            RaisePropertyChanged("TimeLeft");
+
+
+        }
+
         private bool CanPassExam()
         {
             return SelectedExam != null;
@@ -190,6 +227,7 @@ namespace TestClient.ViewModels
             CurrentTestIndex = 0;
             SelectTestIsEnabled = true;
             QuestionText = string.Empty;
+            TimeVisibility = Visibility.Hidden;
             for (int i = 1; i <= SelectedExam.TestExam.NumberOfAnswers; i++)
             {
                 this.GetType().GetProperty($"Answer{i}Visibility").SetValue(this, Visibility.Hidden);
