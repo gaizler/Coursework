@@ -24,7 +24,6 @@
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         <Setter Property="Margin" Value="5"></Setter>
-        <Setter Property="Foreground" Value="#00adb5"></Setter>
     </Style>
 
     <Style x:Key="roundButtonStyle" TargetType="Button">

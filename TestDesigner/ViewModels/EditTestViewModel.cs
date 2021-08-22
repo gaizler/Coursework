@@ -107,10 +107,9 @@ namespace TestDesigner.ViewModels
         public RelayCommand SelectedAnswerChangedCommand { get; }
         public RelayCommand SelectedQuestionToEditChangedCommand { get; set; }
         public RelayCommand EditQuestionCommand { get; set; }
+        public RelayCommand DeleteQuestionCommand { get; }
         public RelayCommand DeleteAnswerCommand { get; set; }
         public RelayCommand<Window> LoadedCommand { get; }
-
-
 
         #endregion
         public EditTestViewModel()
@@ -124,6 +123,7 @@ namespace TestDesigner.ViewModels
             SelectedQuestionToEditChangedCommand = new RelayCommand(SelectedQuestionToEditChanged);
             EditQuestionCommand = new RelayCommand(EditQuestion,CanEditQuestion,false);
             DeleteAnswerCommand = new RelayCommand(DeleteAnswer, CanDeleteAnswer, false);
+            DeleteQuestionCommand = new RelayCommand(DeleteQuestion,CanDeleteQuestion,false);
 
         }
 
@@ -197,6 +197,18 @@ namespace TestDesigner.ViewModels
         {
             return QuestionEditText.Length > 0 && SelectedEditDifficulty != null;
         }
+        private void DeleteQuestion()
+        {
+            TestExam.Tests.Remove(CurrentExamSelectedQuestion);
+            RaisePropertyChanged("CurrentExamQuestions");
+            ClearQuestionSection();
+
+        }
+
+        private bool CanDeleteQuestion()
+        {
+            return CurrentExamSelectedQuestion != null;
+        }
         private void NextQuestion()
         {
             if (CurrentTest.Answers.Count(x => x.isCorrect == true) != 1)
@@ -221,6 +233,7 @@ namespace TestDesigner.ViewModels
 
             RaisePropertyChanged("CurrentExamQuestions");
             ClearQuestionSection();
+            ClearAnswersSection();
             MoveToQuestionMode();
 
         }
@@ -278,7 +291,7 @@ namespace TestDesigner.ViewModels
         private void SaveFile()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(TestExam));
-            using (FileStream fs = new FileStream($"Tests/{FileName}.xml", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream($"Tests/{FileName}.xml", FileMode.Create))
             {
                 serializer.Serialize(fs, TestExam);
                 ClearAllSections();
@@ -337,6 +350,8 @@ namespace TestDesigner.ViewModels
             CurrentTest = new Test();
             QuestionText = string.Empty;
             SelectedDifficulty = null;
+            QuestionEditText = string.Empty;
+            SelectedEditDifficulty = null;
         }
     }
 }

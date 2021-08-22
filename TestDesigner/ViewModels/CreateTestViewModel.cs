@@ -127,6 +127,7 @@ namespace TestDesigner.ViewModels
             TestExam.Tests.Add(CurrentTest);
 
             ClearQuestionSection();
+            ClearAnswersSection();
             MoveToQuestionMode();
 
         }
@@ -161,7 +162,7 @@ namespace TestDesigner.ViewModels
         private void SaveFile()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(TestExam));
-            using (FileStream fs=new FileStream($"Tests/{FileName}.xml", FileMode.OpenOrCreate))
+            using (FileStream fs=new FileStream($"Tests/{FileName}.xml", FileMode.Create))
             {
                 serializer.Serialize(fs,TestExam);
                 ClearAllSections();
